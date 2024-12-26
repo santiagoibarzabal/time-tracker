@@ -1,0 +1,74 @@
+stages:
+  - build_docker
+  - test
+
+variables:
+  DOCKER_IMAGE: "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_TLS_CERTDIR: ""
+  DOCKER_DRIVER: overlay2
+  MYSQL_HOST: mysql
+  MYSQL_DATABASE: test
+  MYSQL_ROOT_USER: root
+  MYSQL_ROOT_PASSWORD: root
+  MYSQL_USER: degustabox
+  MYSQL_PASSWORD: degustabox
+
+workflow:
+  name: "$PIPELINE_NAME"
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      variables:
+        PIPELINE_NAME: "$CI_COMMIT_REF_NAME"
+    - if: "$CI_COMMIT_TAG != null"
+      variables:
+        PIPELINE_NAME: "$CI_COMMIT_TAG"
+
+build_docker:
+  image: docker:latest
+  stage: build_docker
+  services:
+      - docker:19.03.8-dind
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - |
+      docker build \
+        --pull \
+        -f Dockerfile \
+        -t $DOCKER_IMAGE .
+    - docker push $DOCKER_IMAGE
+
+feature:
+  image: "$DOCKER_IMAGE"
+  stage: test
+  services:
+    - docker:19.03.8-dind
+    - name: mysql:8.0.31
+      alias: mysql
+      command:
+        [
+          "--default-authentication-plugin=mysql_native_password",
+          "--sql_mode=STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION",
+        ]
+  script:
+    - cd /app
+    - cp .env.unit .env
+    - XDEBUG_MODE=coverage php artisan test --coverage
+
+pint:
+  image: "$DOCKER_IMAGE"
+  stage: test
+  services:
+    - docker:19.03.8-dind
+  script:
+    - cd /app
+    - vendor/bin/pint --test
+
+phpstan:
+  image: "$DOCKER_IMAGE"
+  stage: test
+  services:
+    - docker:19.03.8-dind
+  script:
+    - cd /app
+    - ./vendor/bin/phpstan analyse --memory-limit=2G
