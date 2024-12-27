@@ -17,12 +17,11 @@ class TaskAggregate
         private ?TaskId $id = null,
         private ?DateTimeImmutable $createdAt = null,
         private ?DateTimeImmutable $updatedAt = null,
-    ) {
-    }
+    ) {}
 
     public static function create(
         TaskName $name,
-        TaskId $id = null,
+        ?TaskId $id = null,
         ?DateTimeImmutable $createdAt = null,
         ?DateTimeImmutable $updatedAt = null,
     ): self {
@@ -61,6 +60,6 @@ class TaskAggregate
 
     public function stop(): void
     {
-        TaskStopped::dispatch($this->id(), new DateTimeImmutable());
+        TaskStopped::dispatch($this->id(), new DateTimeImmutable);
     }
 }

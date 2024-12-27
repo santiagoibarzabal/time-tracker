@@ -9,10 +9,10 @@ use Illuminate\Foundation\Configuration\Middleware;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withCommands([
-            ListDailyTaskStats::class,
-            StartTask::class,
-            StopTask::class,
-        ]
+        ListDailyTaskStats::class,
+        StartTask::class,
+        StopTask::class,
+    ]
     )
     ->withRouting(
         web: __DIR__.'/../routes/web.php',

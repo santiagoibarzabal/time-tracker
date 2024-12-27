@@ -15,9 +15,7 @@ class RepositoryServiceProvider extends ServiceProvider
     /**
      * Register services.
      */
-    public function register(): void
-    {
-    }
+    public function register(): void {}
 
     /**
      * Bootstrap services.
@@ -25,13 +23,13 @@ class RepositoryServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->app->singleton(TaskStatisticsRepository::class, function () {
-            return new EloquentTaskStatisticsRepository();
+            return new EloquentTaskStatisticsRepository;
         });
         $this->app->singleton(TaskRepository::class, function () {
-            return new EloquentTaskRepository();
+            return new EloquentTaskRepository;
         });
         $this->app->singleton(TaskEntryRepository::class, function () {
-            return new EloquentTaskEntryRepository();
+            return new EloquentTaskEntryRepository;
         });
     }
 }

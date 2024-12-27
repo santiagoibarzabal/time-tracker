@@ -18,6 +18,7 @@ class EloquentTaskStatisticsRepository implements TaskStatisticsRepository
 {
     /**
      * @returns array<TaskStatisticsAggregate>
+     *
      * @throws InvalidTaskName
      */
     public function list(DateTimeImmutable $date, int $limit, int $offset): array
@@ -49,6 +50,7 @@ class EloquentTaskStatisticsRepository implements TaskStatisticsRepository
                 $lastStoppedAt
             );
         }
+
         return $taskStatsAggregates;
     }
 }

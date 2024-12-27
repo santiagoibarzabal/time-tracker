@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\TaskEntries\Application;
 
-
 use App\TaskEntries\Domain\Repository\TaskEntryRepository;
 use App\TaskEntries\Domain\TaskEntryAggregate;
 use App\TaskEntries\Domain\ValueObjects\TaskId;

@@ -8,8 +8,7 @@ readonly class TimeElapsedToday
 {
     public function __construct(
         private int $value,
-    ) {
-    }
+    ) {}
 
     public function value(): int
     {

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\TaskStatistics\Domain\ValueObjects;
 
-
 use App\TaskStatistics\Domain\Exceptions\InvalidTaskName;
 
 readonly class TaskName
@@ -25,7 +24,7 @@ readonly class TaskName
 
     /**
      * @throws * @throws InvalidTaskName
- */
+     */
     private function validate(): void
     {
         if (empty($this->value) || strlen($this->value) > 50) {

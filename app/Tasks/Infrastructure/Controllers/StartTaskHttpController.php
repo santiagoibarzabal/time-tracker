@@ -7,16 +7,12 @@ namespace App\Tasks\Infrastructure\Controllers;
 use App\Tasks\Application\StartTaskTimerUseCase;
 use App\Tasks\Domain\Exceptions\InvalidTaskName;
 use App\Tasks\Domain\Exceptions\TaskCannotBeStartedWithActiveEntries;
-use App\Tasks\Domain\Exceptions\TaskNotFound;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 
 readonly class StartTaskHttpController
 {
     public function __construct(
         private StartTaskTimerUseCase $useCase,
-    ) {
-    }
+    ) {}
 
     /**
      * @throws InvalidTaskName

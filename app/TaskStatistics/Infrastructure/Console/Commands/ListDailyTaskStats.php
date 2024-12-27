@@ -32,11 +32,11 @@ class ListDailyTaskStats extends Command
         $tasks = collect($tasks);
         $tableData = $tasks->map(function ($task) {
             return [
-                'Task Name'        => $task->taskName()->value(),
-                'Status'           => $task->status()->value,
+                'Task Name' => $task->taskName()->value(),
+                'Status' => $task->status()->value,
                 'Total Elapsed Time' => $task->timeElapsedToday()->toHours() != 0 ? $task->timeElapsedToday()->toHours() : '-',
-                'First Start'      => $task->firstStartedAt()->format('Y-m-d H:i:s'),
-                'Last Stop'        => $task->lastStoppedAt() ? $task->lastStoppedAt()->format('Y-m-d H:i:s') : 'N/A',
+                'First Start' => $task->firstStartedAt()->format('Y-m-d H:i:s'),
+                'Last Stop' => $task->lastStoppedAt() ? $task->lastStoppedAt()->format('Y-m-d H:i:s') : 'N/A',
             ];
         });
         $this->table(['Task Name', 'Status', 'Total Elapsed Time', 'First Start', 'Last Stop'], $tableData);

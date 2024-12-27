@@ -10,6 +10,7 @@ use DateTimeImmutable;
 abstract class DomainEvent
 {
     protected AggregateId $aggregateId;
+
     private DateTimeImmutable $createdAt;
 
     protected function __construct(

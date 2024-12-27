@@ -15,14 +15,12 @@ class TaskEntryAggregate
         private readonly DateTimeImmutable $startedAt,
         private ?DateTimeImmutable $stoppedAt = null,
         private readonly ?TaskEntryId $id = null,
-    ) {
-    }
+    ) {}
 
     public static function create(
         TaskId $taskId,
-        DateTimeImmutable $startedAt,
-        DateTimeImmutable|null $stoppedAt = null,
-        TaskEntryId $id = null,
+        DateTimeImmutable $startedAt, ?DateTimeImmutable $stoppedAt = null,
+        ?TaskEntryId $id = null,
     ): TaskEntryAggregate {
         return new self($taskId, $startedAt, $stoppedAt, $id);
     }
@@ -57,5 +55,3 @@ class TaskEntryAggregate
         return $this->stoppedAt === null;
     }
 }
-
-

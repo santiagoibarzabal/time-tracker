@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\TaskEntries\Application;
 
-
 use App\TaskEntries\Domain\Exceptions\NoEntriesFound;
 use App\TaskEntries\Domain\Services\StopTaskEntryService;
 use App\TaskEntries\Domain\ValueObjects\TaskId;

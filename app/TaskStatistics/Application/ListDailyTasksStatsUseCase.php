@@ -19,6 +19,6 @@ readonly class ListDailyTasksStatsUseCase
      */
     public function execute(): array
     {
-        return $this->taskStatisticsRepository->list(new DateTimeImmutable(), 20, 0);
+        return $this->taskStatisticsRepository->list(new DateTimeImmutable, 20, 0);
     }
 }

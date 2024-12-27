@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\TaskEntries\Domain\Services;
 
-
 use App\TaskEntries\Domain\Exceptions\NoEntriesFound;
 use App\TaskEntries\Domain\Repository\TaskEntryRepository;
 use App\TaskEntries\Domain\ValueObjects\TaskId;
@@ -23,7 +22,7 @@ readonly class StopTaskEntryService
     {
         $taskEntries = $this->taskEntryRepository->list($taskId, 20, 0);
         if (empty($taskEntries)) {
-            throw new NoEntriesFound();
+            throw new NoEntriesFound;
         }
         foreach ($taskEntries as $entry) {
             if ($entry->isCurrentlyInProgress()) {

@@ -29,11 +29,13 @@ class EloquentTaskEntryRepository implements TaskEntryRepository
                 new TaskEntryId($entry->id),
             );
         }
+
         return $taskEntries;
     }
+
     public function save(TaskEntryAggregate $taskEntryAggregate): TaskEntryAggregate
     {
-        $taskEntry = $taskEntryAggregate->id()?->value() ? TaskEntry::query()->find($taskEntryAggregate->id()->value()) : new TaskEntry();
+        $taskEntry = $taskEntryAggregate->id()?->value() ? TaskEntry::query()->find($taskEntryAggregate->id()->value()) : new TaskEntry;
         $startedAt = $taskEntry->started_at !== null ? DateTimeImmutable::createFromFormat('Y-m-d H:i:s', (string) $taskEntry->started_at) : $taskEntryAggregate->startedAt();
         $taskEntry->fill([
             'task_id' => $taskEntryAggregate->taskId()->value(),
@@ -42,6 +44,7 @@ class EloquentTaskEntryRepository implements TaskEntryRepository
         ]);
         $stoppedAt = $taskEntry->stopped_at !== null ? DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $taskEntry->stopped_at) : null;
         $taskEntry->save();
+
         return TaskEntryAggregate::create(
             new TaskId($taskEntry->id),
             DateTimeImmutable::createFromFormat('Y-m-d H:i:s', (string) $taskEntry->started_at),

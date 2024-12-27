@@ -11,4 +11,3 @@ it('starts and stops a task via console command', function () {
     expect(TaskEntry::query()->where('task_id', $task->id)->count())->toBe(1)
         ->and(TaskEntry::query()->where('task_id', $task->id)->orderBy('created_at')->first()->stopped_at)->toBeString();
 });
-

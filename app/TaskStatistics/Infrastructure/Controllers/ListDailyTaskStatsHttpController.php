@@ -12,13 +12,14 @@ readonly class ListDailyTaskStatsHttpController
 {
     public function __construct(
         private ListDailyTasksStatsUseCase $useCase,
-    ) {
-    }
+    ) {}
+
     public function index(Request $request): View
     {
         $tasks = $this->useCase->execute();
+
         return view('tasks', [
-            'tasks' => $tasks
+            'tasks' => $tasks,
         ]);
     }
 }

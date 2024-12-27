@@ -18,17 +18,15 @@ class TaskStatisticsAggregate
         private TaskStatus $status,
         private readonly TimeElapsedToday $timeElapsedToday,
         private readonly DateTimeImmutable $firstStartedAt,
-        private readonly DateTimeImmutable | null $lastStoppedAt = null,
-    ) {
-    }
+        private readonly ?DateTimeImmutable $lastStoppedAt = null,
+    ) {}
 
     public static function create(
         TaskId $taskId,
         TaskName $taskName,
         TaskStatus $status,
         TimeElapsedToday $timeElapsedToday,
-        DateTimeImmutable $firstStartedAt,
-        DateTimeImmutable | null $lastStoppedAt = null,
+        DateTimeImmutable $firstStartedAt, ?DateTimeImmutable $lastStoppedAt = null,
     ): TaskStatisticsAggregate {
         return new self($taskId, $taskName, $status, $timeElapsedToday, $firstStartedAt, $lastStoppedAt);
     }
@@ -63,5 +61,3 @@ class TaskStatisticsAggregate
         return $this->lastStoppedAt;
     }
 }
-
-

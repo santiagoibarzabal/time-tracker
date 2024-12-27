@@ -6,15 +6,13 @@ namespace App\Tasks\Infrastructure\Controllers;
 
 use App\Tasks\Application\StopTimerUseCase;
 use App\Tasks\Domain\Exceptions\InvalidTaskName;
-use App\Tasks\Domain\Exceptions\TaskCannotBeStartedWithActiveEntries;
 use App\Tasks\Domain\Exceptions\TaskNotFound;
 
 readonly class StopTaskHttpController
 {
     public function __construct(
         private StopTimerUseCase $useCase,
-    ) {
-    }
+    ) {}
 
     /**
      * @throws InvalidTaskName

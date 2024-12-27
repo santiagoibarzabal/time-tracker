@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tasks\Application;
 
-
 use App\Tasks\Domain\Exceptions\InvalidTaskName;
 use App\Tasks\Domain\Exceptions\TaskCannotBeStartedWithActiveEntries;
 use App\Tasks\Domain\Service\StartTaskService;
