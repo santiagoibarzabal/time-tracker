@@ -22,7 +22,7 @@ class EloquentTaskRepository implements TaskRepository
     {
         $task = Task::query()->where('name', $taskName->value())->first();
         if (! $task) {
-            throw new TaskNotFound;
+            throw new TaskNotFound('Task not found');
         }
         $updatedAt = $task->updated_at !== null ? DateTimeImmutable::createFromFormat('Y-m-d H:i:s', (string) $task->updated_at) : null;
 

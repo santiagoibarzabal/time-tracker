@@ -3,6 +3,7 @@
 namespace App\Tasks\Infrastructure\Console\Commands;
 
 use App\Tasks\Application\StopTimerUseCase;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\App;
 
@@ -28,6 +29,10 @@ class StopTask extends Command
     public function handle(): void
     {
         $useCase = App::make(StopTimerUseCase::class);
-        $useCase->execute($this->argument('name'));
+        try {
+            $useCase->execute($this->argument('name'));
+        } catch (Exception $exception) {
+            $this->error('Error: ' . $exception->getMessage());
+        }
     }
 }

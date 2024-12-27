@@ -4,6 +4,18 @@ This project provides a full stack solution to track tasks and uses [Laravel](ht
 
 ## Focus
 - The project has been developed with Hexagonal Archictecture and DDD, focusing on the backend and providing the minimum front-end necessary.
+- To use the application it is essential to execute the queue:work command detailed below ("running the app")
+
+## Follow the steps below ("running the app") in order to initialize correctly the application. The timer can be executed via:
+#### Endpoints:
+  - GET `/tasks`: list all tasks stats with status, total time elapsed, etc. 
+  - POST `/tasks/{name}`: crate task & start timer. 
+  - PUT `/tasks/{name}`: stop task timer
+
+#### CLI (same functionalities as above):
+ - php artisan task:list
+ - php artisan task:start {name}
+ - php artisan task:stop {name}
 
 ## Tools
 - [Docker](https://docs.docker.com/engine/reference/commandline/docker/) and [Docker compose](https://docs.docker.com/compose/)
@@ -54,15 +66,15 @@ docker compose exec api php artisan migrate
 docker compose exec api php artisan queue:work
 ```
 
-### Seed database
+### Build frontend.  
 ```
-docker compose exec api php artisan db:seed
+npm install
+```
+```
+npm run build
 ```
 
 ## Running the tests
 ```
 docker compose exec api php artisan test
 ```
-
-## Local development
-- Please execute migrations and seeders as detailed above in order.

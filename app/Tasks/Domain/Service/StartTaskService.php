@@ -30,7 +30,7 @@ readonly class StartTaskService
             $task = $this->taskRepository->save($task);
         }
         if ($this->taskRepository->hasActiveEntries($task->id())) {
-            throw new TaskCannotBeStartedWithActiveEntries;
+            throw new TaskCannotBeStartedWithActiveEntries('Task cannot be started with active entries');
         }
         $task->start();
     }
