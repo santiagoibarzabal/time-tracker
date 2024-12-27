@@ -23,28 +23,29 @@ class EloquentTaskStatisticsRepository implements TaskStatisticsRepository
     public function list(DateTimeImmutable $date, int $limit, int $offset): array
     {
         $tasks = DB::table('task_entries')
-            ->join('tasks', 'task_entries.task_id', '=', 'tasks.id') // Join the tasks table
+            ->join('tasks', 'task_entries.task_id', '=', 'tasks.id')
             ->selectRaw('
                 task_entries.task_id,
                 tasks.name as task_name,
-                MIN(task_entries.started_at) as started_at,
-                MAX(task_entries.stopped_at) as stopped_at,
-                SUM(TIMESTAMPDIFF(SECOND, task_entries.started_at, COALESCE(task_entries.stopped_at, NOW()))) as total_elapsed_time
+                MIN(task_entries.started_at) as first_start_time,
+                MAX(task_entries.stopped_at) as last_stop_time,
+                SUM(TIMESTAMPDIFF(SECOND, task_entries.started_at, task_entries.stopped_at)) as total_elapsed_time
             ')
             ->whereDate('task_entries.started_at', $date->format('Y-m-d'))
             ->groupBy('task_entries.task_id', 'tasks.name')
             ->orderBy('task_entries.task_id')
             ->get();
+
         $taskStatsAggregates = [];
         foreach ($tasks as $task) {
-            $status = $task->stopped_at !== null ? TaskStatus::STOPPED : TaskStatus::STARTED;
-            $lastStoppedAt = $task->stopped_at ? DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $task->stopped_at) : null;
+            $status = $task->last_stop_time !== null ? TaskStatus::STOPPED : TaskStatus::STARTED;
+            $lastStoppedAt = $task->last_stop_time ? DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $task->last_stop_time) : null;
             $taskStatsAggregates[] = TaskStatisticsAggregate::create(
                 new TaskId($task->task_id),
                 new TaskName($task->task_name),
                 $status,
                 new TimeElapsedToday((int) $task->total_elapsed_time),
-                DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $task->started_at),
+                DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $task->first_start_time),
                 $lastStoppedAt
             );
         }
