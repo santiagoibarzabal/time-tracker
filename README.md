@@ -1,10 +1,9 @@
 # Task Timer
 
-This project provides a full stack solution to track tasks and uses [Laravel](https://laravel.com/docs/11.x) framework.
+This project provides a full stack solution to track tasks and uses [Laravel](https://laravel.com/docs/11.x) framework. 
 
 ## Focus
-- I have decided not to use Laravel Sail since losing control of dockerfile and docker compose definitions is not ideal.
-- I have decided to cover tests mostly with Feature tests since these are the minimum assurance needed to deliver useful endpoints.
+- The project has been developed with Hexagonal Archictecture and DDD, focusing on the backend and providing the minimum front-end necessary.
 
 ## Tools
 - [Docker](https://docs.docker.com/engine/reference/commandline/docker/) and [Docker compose](https://docs.docker.com/compose/)
@@ -14,6 +13,7 @@ This project provides a full stack solution to track tasks and uses [Laravel](ht
 - [NGINX](https://www.nginx.com/)
 - [PHP-FPM](https://www.php.net/manual/en/install.fpm.php)
 - [Pest](https://pestphp.com/)
+- [Tailwind](https://tailwindcss.com/)
 
 ## Running the app
 
