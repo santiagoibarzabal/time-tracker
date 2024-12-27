@@ -20,7 +20,6 @@ readonly class StartTaskHttpController
 
     /**
      * @throws InvalidTaskName
-     * @throws TaskCannotBeStartedWithActiveEntries
      */
     public function start(string $name)
     {
