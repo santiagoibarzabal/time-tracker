@@ -16,17 +16,17 @@ readonly class StopTaskHttpController
 
     /**
      * @throws InvalidTaskName
-     * @throws TaskNotFound
      */
     public function stop(string $name)
     {
         if (empty('name') || strlen($name) > 50) {
-            return redirect()->back()->withErrors(['name' => 'Invalid name']);
+            return response()->json(['error' => 'Invalid name'], 422);
         }
         try {
             $this->useCase->execute($name);
         } catch (TaskNotFound) {
-            return redirect()->back()->withErrors(['name' => 'Task not found by name']);
+            return response()->json(['error' => 'Task not found by name'], 422);
         }
+        return response()->json(['success' => 'Task successfully stopped'], 200);
     }
 }

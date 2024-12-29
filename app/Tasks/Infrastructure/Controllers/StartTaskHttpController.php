@@ -7,6 +7,7 @@ namespace App\Tasks\Infrastructure\Controllers;
 use App\Tasks\Application\StartTaskTimerUseCase;
 use App\Tasks\Domain\Exceptions\InvalidTaskName;
 use App\Tasks\Domain\Exceptions\TaskCannotBeStartedWithActiveEntries;
+use Illuminate\Http\JsonResponse;
 
 readonly class StartTaskHttpController
 {
@@ -17,15 +18,16 @@ readonly class StartTaskHttpController
     /**
      * @throws InvalidTaskName
      */
-    public function start(string $name)
+    public function start(string $name): JsonResponse
     {
         if (empty('name') || strlen($name) > 50) {
-            return redirect()->back()->withErrors(['name' => 'Invalid name']);
+            return response()->json(['error' => 'Invalid name'], 422);
         }
         try {
             $this->useCase->execute($name);
         } catch (TaskCannotBeStartedWithActiveEntries) {
-            return redirect()->back()->withErrors(['name' => 'Task cannot be started with a active entries']);
+            return response()->json(['error' => 'Task cannot be started with a active entries'], 422);
         }
+        return response()->json(['success' => 'Task successfully started'], 200);
     }
 }
