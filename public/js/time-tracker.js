@@ -53,6 +53,8 @@ const startStopTimer = () => {
         if (currentTask && currentTask.name) {
             updateTask();
             saveState();
+            updateTimerDisplay(0)
+            setTimeout(window.location.reload.bind(window.location), 500);
         }
     } else {
         if (taskNameInput.value.trim() === "") {
@@ -78,8 +80,15 @@ const startStopTimer = () => {
 }
 
 const updateTimerDisplay = (time) => {
+    if (isNaN(time)) {
+        timerCurrent.innerHTML = `<p>Current timer: 0h 0m 0s</p>`;
+        return
+    }
     const seconds = time % 60;
-    timerCurrent.innerHTML = `<p>Current timer: ${seconds}</p>`;
+    const minutes = Math.floor(time / 60) % 60;
+    const hours = Math.floor(time / 3600);
+    timerCurrent.innerHTML = `<p>Current timer: ${hours}h ${minutes}m ${seconds}s</p>`;
+
 }
 
 const saveState = () => {
