@@ -31,6 +31,7 @@ class StopTask extends Command
         $useCase = App::make(StopTimerUseCase::class);
         try {
             $useCase->execute($this->argument('name'));
+            $this->info('The task "' . $this->argument('name') . '" was stopped successfully.');
         } catch (Exception $exception) {
             $this->error('Error: ' . $exception->getMessage());
         }

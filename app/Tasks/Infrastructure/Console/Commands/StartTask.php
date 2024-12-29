@@ -31,6 +31,7 @@ class StartTask extends Command
         $useCase = App::make(StartTaskTimerUseCase::class);
         try {
             $useCase->execute($this->argument('name'));
+            $this->info('The task "' . $this->argument('name') . '" was started successfully.');
         } catch (Exception $exception) {
             $this->error('Error: ' . $exception->getMessage());
         }
