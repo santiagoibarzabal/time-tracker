@@ -14,14 +14,14 @@ abstract class DomainEvent
     private DateTimeImmutable $createdAt;
 
     protected function __construct(
-        mixed $aggregateId,
+        AggregateId $aggregateId,
         DateTimeImmutable $createdAt,
     ) {
         $this->aggregateId = $aggregateId;
         $this->createdAt = $createdAt;
     }
 
-    public function aggregateId(): mixed
+    public function aggregateId(): AggregateId
     {
         return $this->aggregateId;
     }
