@@ -7,6 +7,7 @@ namespace App\TaskStatistics\Domain;
 use App\TaskStatistics\Domain\ValueObjects\TaskId;
 use App\TaskStatistics\Domain\ValueObjects\TaskName;
 use App\TaskStatistics\Domain\ValueObjects\TaskStatus;
+use App\TaskStatistics\Domain\ValueObjects\TimeElapsed;
 use App\TaskStatistics\Domain\ValueObjects\TimeElapsedToday;
 use DateTimeImmutable;
 
@@ -16,6 +17,7 @@ class TaskStatisticsAggregate
         private readonly TaskId $taskId,
         private TaskName $taskName,
         private TaskStatus $status,
+        private readonly TimeElapsed $timeElapsed,
         private readonly TimeElapsedToday $timeElapsedToday,
         private readonly DateTimeImmutable $firstStartedAt,
         private readonly ?DateTimeImmutable $lastStoppedAt = null,
@@ -25,10 +27,11 @@ class TaskStatisticsAggregate
         TaskId $taskId,
         TaskName $taskName,
         TaskStatus $status,
+        TimeElapsed $timeElapsed,
         TimeElapsedToday $timeElapsedToday,
         DateTimeImmutable $firstStartedAt, ?DateTimeImmutable $lastStoppedAt = null,
     ): TaskStatisticsAggregate {
-        return new self($taskId, $taskName, $status, $timeElapsedToday, $firstStartedAt, $lastStoppedAt);
+        return new self($taskId, $taskName, $status, $timeElapsed, $timeElapsedToday, $firstStartedAt, $lastStoppedAt);
     }
 
     public function taskId(): TaskId
@@ -44,6 +47,11 @@ class TaskStatisticsAggregate
     public function status(): TaskStatus
     {
         return $this->status;
+    }
+
+    public function timeElapsed(): TimeElapsed
+    {
+        return $this->timeElapsed;
     }
 
     public function timeElapsedToday(): TimeElapsedToday

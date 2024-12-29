@@ -56,7 +56,6 @@ function startStopTimer() {
                 'Content-Type': 'application/json',
                 'X-CSRF-TOKEN': csrfToken,
             },
-            body: JSON.stringify({ time: elapsedTime })
         })
             .then(response => response.json())
             .then(data => {

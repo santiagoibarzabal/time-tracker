@@ -36,25 +36,29 @@
                         <th class="px-2 py-2 sm:px-4 sm:py-2 border">Started At</th>
                         <th class="px-2 py-2 sm:px-4 sm:py-2 border">Stopped At</th>
                         <th class="px-2 py-2 sm:px-4 sm:py-2 border">Time Spent (hours)</th>
+                        <th class="px-2 py-2 sm:px-4 sm:py-2 border">Time Spent Today(hours)</th>
                     </tr>
                     </thead>
                     <tbody id="taskSummary">
                     @foreach($tasks as $task)
                         <tr>
                             <td class="px-2 py-2 sm:px-4 sm:py-2 border">
-                                {{$task->taskName()->value()}}
+                                {{$task["name"]}}
                             </td>
                             <td class="px-2 py-2 sm:px-4 sm:py-2 border">
-                                {{$task->status()->value}}
+                                {{$task["status"]}}
                             </td>
                             <td class="px-2 py-2 sm:px-4 sm:py-2 border">
-                                {{$task->firstStartedAt()->format('Y-m-d H:i:s')}}
+                                {{$task["first_start"]}}
                             </td>
                             <td class="px-2 py-2 sm:px-4 sm:py-2 border">
-                                {{$task->lastStoppedAt()?->format('Y-m-d H:i:s')}}
+                                {{$task["last_stop"]}}
                             </td>
                             <td class="px-2 py-2 sm:px-4 sm:py-2 border">
-                                {{$task->timeElapsedToday()->toHours()}}
+                                {{$task["time"]}}
+                            </td>
+                            <td class="px-2 py-2 sm:px-4 sm:py-2 border">
+                                {{$task["time_today"]}}
                             </td>
                         </tr>
                     @endforeach
