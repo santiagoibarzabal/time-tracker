@@ -18,10 +18,12 @@ const updateTask = () => {
             'Content-Type': 'application/json',
             'X-CSRF-TOKEN': csrfToken,
         },
-        body: JSON.stringify({ time: elapsedTime })
     })
         .then(response => response.json())
         .then(data => {
+            if (data.error){
+                showError(data.error)
+            }
             console.log('Task stopped:', data);
         })
         .catch(error => {
@@ -38,12 +40,20 @@ const startTask = () => {
     })
         .then(response => response.json())
         .then(data => {
+            if (data.error){
+                showError(data.error)
+            }
             console.log('Task started:', data);
         })
         .catch(error => {
             console.error('Error starting task:', error);
         });
 }
+const showError = (error) => {
+    timerCurrent.innerHTML = `<p>Error ${error}</p>`;
+    setTimeout(window.location.reload.bind(window.location), 100);
+}
+
 const startStopTimer = () => {
     if (isTimerRunning) {
         clearInterval(timerInterval);
@@ -64,7 +74,6 @@ const startStopTimer = () => {
             name: taskNameInput.value.trim(),
             time: 0
         };
-
         tasks.push(currentTask);
         elapsedTime = 0;
         timerInterval = setInterval(() => {
