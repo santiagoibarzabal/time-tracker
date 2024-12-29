@@ -14,11 +14,20 @@
 
         <div class="flex justify-center mb-4">
             <button
-                id="startStopButton"
+                id="startButton"
                 class="bg-green-500 text-white p-3 rounded w-full sm:w-auto text-base"
-                onclick="startStopTimer()"
+                onclick="startTimer()"
             >
-                Start/Stop
+                Start
+            </button>
+        </div>
+        <div class="flex justify-center mb-4">
+            <button
+                id="stopButton"
+                class="bg-green-500 text-white p-3 rounded w-full sm:w-auto text-base"
+                onclick="stopTimer()"
+            >
+                Stop
             </button>
         </div>
 
